@@ -88,7 +88,7 @@
     },
     created() {
       this.fetchTimers();
-      const wsProtocol = location.protocol === "https:" ? "ws:" : "ws:";
+      const wsProtocol = location.protocol === "https:" ? "wss:" : "ws:";
       const ws = new WebSocket(`${wsProtocol}//${location.host}/ws?session_id=${window.SESSION_ID}`);
 
       ws.onmessage = (event) => {
