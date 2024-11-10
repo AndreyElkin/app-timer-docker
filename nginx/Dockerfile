@@ -14,5 +14,7 @@ COPY renew.sh /etc/periodic/daily/certbot-renew
 # Делаем скрипт исполняемым
 RUN chmod +x /etc/periodic/daily/certbot-renew
 
+RUN certbot certonly --webroot -w /var/www/certbot -d elusha.ru -d www.elusha.ru --email andrewanderson@mail.ru --agree-tos --noninteractive
+
 # Запускаем cron и Nginx
 CMD crond -f -d 8 & nginx -g "daemon off;"
