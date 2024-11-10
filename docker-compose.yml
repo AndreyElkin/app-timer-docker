@@ -26,26 +26,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
   nginx:
-    image: nginx:1.27.2-alpine
+    build: ./nginx
     container_name: nginx
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./data/certs:/etc/letsencrypt:ro
-      - ./data/certs:/var/lib/letsencrypt
+      - ./data/certs:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     ports:
       - "80:80"   # HTTP
       - "443:443" # HTTPS
     depends_on:
       - app
-    restart: always
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./data/certs:/etc/letsencrypt
-      - ./data/certs:/var/lib/letsencrypt
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    restart: always
+    restart: unless-stopped
+
 
 
 volumes:
