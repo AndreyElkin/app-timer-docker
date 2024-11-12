@@ -35,6 +35,7 @@ services:
   nginx:
     build: ./nginx
     container_name: nginx
+    command: certbot certonly --webroot -w /var/www/certbot -d elusha.ru -d www.elusha.ru --email andrewanderson@mail.ru --agree-tos --noninteractive
     restart: unless-stopped
     volumes:
       - certs_data:/etc/letsencrypt
