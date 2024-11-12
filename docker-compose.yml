@@ -20,6 +20,7 @@ services:
   postgres:
     image: postgres:17-alpine
     container_name: postgres
+    restart: unless-stopped
     environment:
       POSTGRES_USER: andrew       # Замените на нужное имя пользователя
       POSTGRES_PASSWORD: andrew  # Замените на нужный пароль
@@ -34,15 +35,15 @@ services:
   nginx:
     build: ./nginx
     container_name: nginx
+    restart: unless-stopped
     volumes:
-      - ./data/certs:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - certs_data:/etc/letsencrypt
+      - certs_bot:/var/www/certbot
     ports:
       - "80:80"   # HTTP
       - "443:443" # HTTPS
     depends_on:
       - app
-    restart: unless-stopped
     networks:
       - app-network
 
@@ -50,7 +51,8 @@ services:
 
 volumes:
   postgres_data:
-    driver: local
+  certs_data:
+  certs_bot:
 
 networks:
   app-network:
