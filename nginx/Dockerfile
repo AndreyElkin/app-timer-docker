@@ -3,7 +3,7 @@ FROM nginx:1.27.2-alpine
 
 # Устанавливаем Certbot и необходимые пакеты
 RUN apk update && \
-    apk add --no-cache certbot bash curl openssl && \
+    apk add --no-cache certbot bash curl openssl mc && \
     mkdir -p /var/www/certbot /etc/letsencrypt
 # Копируем конфигурационный файл Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf

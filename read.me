@@ -1,0 +1,10 @@
+# для запуска
+certbot certonly
+# для перезапуска сервера в контейнере
+nginx -s reload
+#путь который надо указать при получении сетификата.
+/var/www/certbot
+#для изенения прав к папке
+sudo chmod -R 755 ./public
+# Для попадания в нутрь контейнера
+sudo docker exec -it nginx sh
