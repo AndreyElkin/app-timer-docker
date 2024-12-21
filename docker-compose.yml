@@ -41,6 +41,8 @@ services:
       - ./nginx/certs_bot:/var/www/certbot
       - /home/andrew/public:/var/www/elusha/public
       - ./nginx/log-cron:/var/log
+      - ./nginx/log-nginx:/var/log/nginx
+      - ./nginx/log:/var/log/nginx
     ports:
       - "80:80"   # HTTP
       - "443:443" # HTTPS
