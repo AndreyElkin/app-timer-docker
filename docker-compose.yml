@@ -28,7 +28,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
 
@@ -37,9 +37,10 @@ services:
     container_name: nginx
     restart: unless-stopped
     volumes:
-      - certs_data:/etc/letsencrypt
-      - certs_bot:/var/www/certbot
+      - ./nginx/letsencrypt:/etc/letsencrypt
+      - ./nginx/certs_bot:/var/www/certbot
       - /home/andrew/public:/var/www/elusha/public
+      - ./nginx/log-cron:/var/log
     ports:
       - "80:80"   # HTTP
       - "443:443" # HTTPS
@@ -47,13 +48,6 @@ services:
       - app
     networks:
       - app-network
-
-
-
-volumes:
-  postgres_data:
-  certs_data:
-  certs_bot:
 
 networks:
   app-network:
